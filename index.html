@@ -47,6 +47,14 @@
         input[type=number] { 
             -moz-appearance: textfield; 
         }
+        
+        /* Скрытие стандартного маркера для Summary */
+        summary {
+            list-style: none;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 p-4 md:p-8">
@@ -56,39 +64,51 @@
             <p class="text-gray-600 mt-2">Интерактивный инструмент для тестирования продвинутой стратегии ставок.</p>
         </header>
 
-        <!-- Instructions View -->
+        <!-- Collapsible Instructions View -->
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg mb-8">
-            <h2 class="text-2xl font-bold mb-4 text-center">Что это и как пользоваться?</h2>
-            <div class="space-y-4 text-gray-700">
-                <p>Это интерактивный симулятор, который позволяет тестировать продвинутую финансовую стратегию управления банком для ставок. Он в точности повторяет логику вашего Python-скрипта, но в удобном визуальном интерфейсе.</p>
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">Ключевые особенности стратегии:</h3>
-                    <ul class="list-disc list-inside space-y-1">
-                        <li><strong>Динамическая цель:</strong> Прибыль рассчитывается как процент от текущего, а не начального банка.</li>
-                        <li><strong>Система восстановления:</strong> Активируется после двух проигрышей подряд для компенсации потерь.</li>
-                        <li><strong>Защитные механизмы:</strong> Включает глобальный стоп-лосс (ограничение просадки от пикового банка) и "аварийный тормоз", который следит за отношением долга к банку.</li>
-                    </ul>
+            <!-- Details tag provides native expand/collapse functionality. Closed by default. -->
+            <details id="instructions-details" class="group">
+                <!-- Summary is the clickable header -->
+                <summary class="text-2xl font-bold text-gray-900 cursor-pointer list-none flex justify-between items-center py-1 hover:text-blue-600 transition duration-150">
+                    Что это и как пользоваться?
+                    <!-- Icon for visual feedback -->
+                    <svg class="w-6 h-6 text-gray-500 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                
+                <!-- The content is revealed when expanded -->
+                <div class="pt-4 border-t border-gray-200 mt-4 space-y-4 text-gray-700">
+                    <p>Это интерактивный симулятор, который позволяет тестировать продвинутую финансовую стратегию управления банком для ставок. Он в точности повторяет логику вашего Python-скрипта, но в удобном визуальном интерфейсе.</p>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Ключевые особенности стратегии:</h3>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Динамическая цель:</strong> Прибыль рассчитывается как процент от текущего, а не начального банка.</li>
+                            <li><strong>Система восстановления:</strong> Активируется после двух проигрышей подряд для компенсации потерь.</li>
+                            <li><strong>Защитные механизмы:</strong> Включает глобальный стоп-лосс (ограничение просадки от пикового банка) и "аварийный тормоз", который следит за отношением долга к банку.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-lg mb-2">Как пользоваться симулятором:</h3>
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li><strong>Настройте параметры:</strong> Введите начальный банк и другие параметры стратегии в форме ниже.</li>
+                            <li><strong>Начните симуляцию:</strong> Нажмите кнопку "Начать Симуляцию".</li>
+                            <li><strong>Сделайте ставку:</strong> Введите коэффициент для следующего события. Система автоматически рассчитает рекомендуемый размер ставки.</li>
+                            <li><strong>Зафиксируйте результат:</strong> Нажмите "Выигрыш" или "Проигрыш", чтобы записать исход ставки.</li>
+                            <li>**Сохраните прогресс:** Используйте кнопки **"Сохранить"** и **"Загрузить"** для возобновления симуляции в любой момент.</li>
+                        </ol>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-lg mb-2">Что это даёт?</h3>
+                        <p>Симулятор — это безопасная "песочница" для вашей стратегии. Он помогает:</p>
+                         <ul class="list-disc list-inside space-y-1 mt-1">
+                            <li><strong>Понять риски:</strong> Наглядно увидеть, как серия проигрышей может повлиять на банк.</li>
+                            <li><strong>Оценить потенциал:</strong> Проверить, насколько эффективна стратегия на длинной дистанции.</li>
+                            <li><strong>Найти оптимальные настройки:</strong> Экспериментировать с параметрами, не рискуя реальными деньгами.</li>
+                        </ul>
+                    </div>
                 </div>
-                 <div>
-                    <h3 class="font-semibold text-lg mb-2">Как пользоваться симулятором:</h3>
-                    <ol class="list-decimal list-inside space-y-1">
-                        <li><strong>Настройте параметры:</strong> Введите начальный банк и другие параметры стратегии в форме ниже.</li>
-                        <li><strong>Начните симуляцию:</strong> Нажмите кнопку "Начать Симуляцию".</li>
-                        <li><strong>Сделайте ставку:</strong> Введите коэффициент для следующего события. Система автоматически рассчитает рекомендуемый размер ставки.</li>
-                        <li><strong>Зафиксируйте результат:</strong> Нажмите "Выигрыш" или "Проигрыш", чтобы записать исход ставки.</li>
-                        <li>**Сохраните прогресс:** Используйте кнопки **"Сохранить"** и **"Загрузить"** для возобновления симуляции в любой момент.</li>
-                    </ol>
-                </div>
-                 <div>
-                    <h3 class="font-semibold text-lg mb-2">Что это даёт?</h3>
-                    <p>Симулятор — это безопасная "песочница" для вашей стратегии. Он помогает:</p>
-                     <ul class="list-disc list-inside space-y-1 mt-1">
-                        <li><strong>Понять риски:</strong> Наглядно увидеть, как серия проигрышей может повлиять на банк.</li>
-                        <li><strong>Оценить потенциал:</strong> Проверить, насколько эффективна стратегия на длинной дистанции.</li>
-                        <li><strong>Найти оптимальные настройки:</strong> Экспериментировать с параметрами, не рискуя реальными деньгами.</li>
-                    </ul>
-                </div>
-            </div>
+            </details>
         </div>
 
         <!-- Settings View -->
